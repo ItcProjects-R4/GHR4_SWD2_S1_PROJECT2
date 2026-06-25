@@ -1,0 +1,84 @@
+:root {
+  --color-win: var(--win);
+  --color-draw: var(--draw);
+  --color-loss: var(--loss);
+  --color-info: var(--accent-blue);
+  --color-accent: var(--accent-green);
+  --color-accent-border: rgba(0,230,118,0.3);
+  --color-accent-dim: rgba(0,230,118,0.15);
+  --border-color: var(--border);
+  --border-color-light: var(--text-muted);
+}
+
+.card-dark {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.card-title-row {
+  display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.9rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border);
+}
+.btn-back { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 0.85rem; font-weight: 600; background: none; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 14px; margin-bottom: 20px; cursor: pointer; transition: 0.2s; }
+.btn-back:hover { color: #fff; border-color: var(--text-muted); }
+
+.loader-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px; gap: 16px; color: var(--text-secondary); }
+.spinner-custom { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent-green); border-radius: 50%; animation: spin 0.8s linear infinite; }
+
+.form-bubble { width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
+.form-bubble.w { background: var(--win); color: #fff; }
+.form-bubble.d { background: var(--draw); color: #fff; }
+.form-bubble.l { background: var(--loss); color: #fff; }
+
+.stat-box { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; text-align: center; }
+.stat-box .stat-value { display: block; font-size: 1.4rem; font-weight: 800; color: #fff; }
+.stat-box .stat-label { display: block; font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; text-transform: uppercase; }
+.stat-box.win { border-color: rgba(0,230,118,0.3); }
+.stat-box.win .stat-value { color: var(--win); }
+.stat-box.loss { border-color: rgba(248,81,73,0.3); }
+.stat-box.loss .stat-value { color: var(--loss); }
+.stat-box.info { border-color: rgba(88,166,255,0.3); }
+.stat-box.info .stat-value { color: var(--accent-blue); }
+
+.player-row-card { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg-secondary); cursor: pointer; transition: 0.2s; margin-bottom: 6px; }
+.player-row-card:hover { background: var(--bg-hover); border-color: var(--text-muted); }
+.player-row-left { display: flex; align-items: center; gap: 10px; }
+.player-row-number { font-size: 11px; font-weight: 700; color: var(--text-muted); width: 20px; text-align: center; }
+.player-row-avatar { width: 32px; height: 32px; border-radius: 50%; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+.player-row-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.player-row-name { font-size: 0.85rem; font-weight: 500; }
+.player-row-right { display: flex; align-items: center; gap: 8px; }
+.player-row-age { font-size: 11px; color: var(--text-muted); }
+.player-row-stats { font-size: 11px; color: var(--accent-green); font-weight: 600; }
+
+.squad-position-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; padding: 3px 8px; border-radius: var(--radius-sm); display: inline-block; }
+.forwards { background: rgba(248,81,73,0.12); color: var(--loss); }
+.midfielders { background: rgba(88,166,255,0.12); color: var(--accent-blue); }
+.defenders { background: rgba(0,230,118,0.12); color: var(--win); }
+.goalkeepers { background: rgba(210,153,34,0.12); color: var(--draw); }
+
+.recent-match-item { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; background: var(--bg-secondary); margin-bottom: 10px; }
+.recent-match-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-bottom: 10px; }
+.recent-match-score { font-weight: 700; font-size: 0.95rem; }
+.outcome-pill { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; }
+.outcome-pill.w { background: rgba(0,230,118,0.08); color: var(--win); }
+.outcome-pill.d { background: rgba(210,153,34,0.08); color: var(--draw); }
+.outcome-pill.l { background: rgba(248,81,73,0.08); color: var(--loss); }
+
+.profile-banner { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 28px; margin-bottom: 20px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.profile-logo-box { width: 88px; height: 88px; border-radius: var(--radius-md); background: var(--bg-secondary); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+.profile-logo-box img { width: 70%; height: 70%; object-fit: contain; }
+.profile-logo-box.player img { width: 100%; height: 100%; object-fit: cover; }
+.profile-info h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
+.profile-meta-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding-left: 0; }
+.profile-meta-item { display: flex; align-items: center; gap: 5px; font-size: 0.82rem; color: var(--text-secondary); background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 20px; padding: 4px 10px; }
+
+.detailed-stat-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; text-align: center; }
+.detailed-stat-value { display: block; font-size: 1.35rem; font-weight: 800; color: #fff; }
+.detailed-stat-label { display: block; font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.select-dark { width: 100%; background: var(--bg-card); border: 1px solid var(--border); color: #fff; border-radius: var(--radius-sm); padding: 10px 12px; font-size: 0.9rem; outline: none; transition: 0.2s; }
+.select-dark:focus { border-color: var(--accent-green); }
+
+.recharts-tooltip-wrapper .recharts-default-tooltip { background: var(--bg-secondary) !important; border: 1px solid var(--border) !important; border-radius: var(--radius-sm) !important; }

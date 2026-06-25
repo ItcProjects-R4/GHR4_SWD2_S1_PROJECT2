@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+  --bg-primary:    #0d1117;
+  --bg-secondary:  #161b22;
+  --bg-card:       #161b22;
+  --bg-card-hover: #1c2128;
+  --bg-nav:        #010409;
+
+  --border:        #30363d;
+  --border-light:  #21262d;
+
+  --accent-green:  #00e676;
+  --accent-green2: #00c853;
+  --accent-blue:   #58a6ff;
+  --accent-purple: #bc8cff;
+
+  --text-primary:  #e6edf3;
+  --text-secondary:#8b949e;
+  --text-muted:    #484f58;
+
+  --win:           #3fb950;
+  --draw:          #d29922;
+  --loss:          #f85149;
+  --live:          #f85149;
+
+  --radius-sm:     6px;
+  --radius-md:     10px;
+  --radius-lg:     14px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── Links ── */
+a { color: var(--accent-blue); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--accent-green); }
+
+/* ── Buttons ── */
+.btn-accent {
+  background: var(--accent-green);
+  border: none;
+  color: #000;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-accent:hover {
+  background: var(--accent-green2);
+  transform: translateY(-1px);
+  color: #000;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-outline:hover {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+/* ── Card ── */
+.fs-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: all 0.2s;
+}
+.fs-card:hover {
+  border-color: rgba(0,230,118,0.4);
+  transform: translateY(-2px);
+}
+
+/* ── Skeleton loader ── */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Live pulse ── */
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+/* ── Page wrapper ── */
+.page-wrapper {
+  padding-top: 56px;   /* navbar height */
+  padding-bottom: 80px; /* mobile bottom nav */
+  min-height: 100vh;
+}
+
+.nav-link-custom {
+  position: relative;
+  color: var(--text-secondary);
+  font-weight: 400;
+  font-size: 0.875rem;
+  text-decoration: none;
+  padding-bottom: 4px;
+  transition: color 0.2s;
+}
+
+.nav-link-custom::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 2px;
+  background-color: var(--accent-green);
+  transition: width 0.3s ease;
+}
+
+.nav-link-custom:hover {
+  color: var(--accent-green);
+}
+
+.nav-link-custom:hover::after {
+  width: 100%;
+}
+
+.nav-link-custom.active {
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+.nav-link-custom.active::after {
+  width: 100%;
+}
