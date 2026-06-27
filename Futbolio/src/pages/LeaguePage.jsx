@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import FootballApiService from '../services/footballApiService';
 import { ALL_LEAGUES_MAP } from '../constants/leagues';
+import { useFavorites } from '../context/FavoritesContext';
 
 function StandingsTab({ leagueId }) {
   const [standings, setStandings] = useState([]);
@@ -226,8 +227,15 @@ function StatsTab({ leagueId, type }) {
 export default function LeaguePage() {
   const { leagueId } = useParams();
   const [activeTab, setActiveTab] = useState('standings');
+  const { isFavorite, addFavorite, removeFavorite } = useFavorites();
   
   const leagueInfo = ALL_LEAGUES_MAP[leagueId];
+  const isFav = isFavorite('league', parseInt(leagueId));
+
+  const toggleFav = () => {
+    if (isFav) removeFavorite('league', parseInt(leagueId));
+    else if (leagueInfo) addFavorite('league', leagueInfo);
+  };
 
   const tabs = [
     { id: 'standings', label: 'Standings', icon: 'bi-list-ol' },
@@ -261,11 +269,27 @@ export default function LeaguePage() {
               )}
             </div>
             <div>
-              <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', fontWeight: 800, margin: 0 }}>
-                {leagueInfo ? leagueInfo.name : 'League Details'}
-              </h1>
+              <div className="d-flex align-items-center gap-3 mb-2">
+                <h1 style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight: 800, margin: 0 }}>
+                  {leagueInfo ? leagueInfo.name : 'League Details'}
+                </h1>
+                {leagueInfo && (
+                  <button 
+                    onClick={toggleFav}
+                    style={{ 
+                      background: 'none', border: 'none', cursor: 'pointer', padding: 0, 
+                      display: 'flex', alignItems: 'center' 
+                    }}
+                  >
+                    <i 
+                      className={`bi ${isFav ? 'bi-heart-fill' : 'bi-heart'}`} 
+                      style={{ color: isFav ? 'var(--loss)' : 'var(--text-muted)', fontSize: '1.5rem', transition: 'color 0.2s' }}
+                    ></i>
+                  </button>
+                )}
+              </div>
               {leagueInfo && (
-                <div className="d-flex align-items-center gap-2 mt-2" style={{ color: 'var(--text-secondary)' }}>
+                <div className="d-flex align-items-center gap-2" style={{ color: 'var(--text-secondary)', fontSize: '1rem' }}>
                   {leagueInfo.flag && <img src={leagueInfo.flag} alt="" style={{ width: 18, height: 18, borderRadius: '50%' }} />}
                   <span style={{ fontSize: '1rem' }}>{leagueInfo.country}</span>
                 </div>

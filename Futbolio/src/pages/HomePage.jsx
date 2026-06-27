@@ -163,6 +163,10 @@ export default function HomePage() {
       .then((data) => {
         const arr = Array.isArray(data) ? data : [];
         const sortedMatches = arr.sort((a, b) => {
+          const aWc = a.league.id === 1 || a.league.id === 200 ? 1 : 0;
+          const bWc = b.league.id === 1 || b.league.id === 200 ? 1 : 0;
+          if (aWc !== bWc) return bWc - aWc;
+
           const aLive = ['1H','2H','HT','ET','P'].includes(a.fixture.status.short) ? 1 : 0;
           const bLive = ['1H','2H','HT','ET','P'].includes(b.fixture.status.short) ? 1 : 0;
           if (aLive !== bLive) return bLive - aLive;

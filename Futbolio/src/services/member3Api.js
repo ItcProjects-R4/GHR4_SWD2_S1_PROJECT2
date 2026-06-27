@@ -12,23 +12,24 @@ export const LEAGUES = {
   1:   { name: 'World Cup',        country: 'World',    flag: '🌍' },
 };
 
-async function get(endpoint) {
-  return await ApiService.get(endpoint, {}, `m3_${endpoint.replace(/[^a-zA-Z0-9]/g, '_')}`);
+async function get(endpoint, params = {}) {
+  // Create a cache key by combining endpoint and stringified params
+  const keyParams = Object.keys(params).length ? '_' + JSON.stringify(params).replace(/[^a-zA-Z0-9]/g, '_') : '';
+  const cacheKey = `m8_${endpoint.replace(/[^a-zA-Z0-9]/g, '_')}${keyParams}`;
+  return await ApiService.get(endpoint, params, cacheKey);
 }
 
 export const api = {
  
   async fetchStandings(leagueId = 39, season = 2024) {
-    const data = await get(`/standings?league=${leagueId}&season=${season}`);
+    const data = await get('/standings', { league: leagueId, season: season });
     if (!data || !data[0]?.league?.standings?.[0]) return [];
     return data[0].league.standings[0];
   },
 
  
   async fetchRecentLeagueMatches(leagueId = 39, season = 2024) {
-    const data = await get(
-      `/fixtures?league=${leagueId}&season=${season}&status=FT&last=10`
-    );
+    const data = await get('/fixtures', { league: leagueId, season: season, status: 'FT', last: 10 });
     return (data || []).map(f => ({
       id: f.fixture.id,
       date: new Date(f.fixture.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }),
@@ -42,24 +43,30 @@ export const api = {
   },
 
   
+  async fetchLeagueTeams(leagueId = 39, season = 2024) {
+    const data = await get('/teams', { league: leagueId, season: season });
+    return data || [];
+  },
+
+  
   async fetchTopScorers(leagueId = 39, season = 2024) {
-    const data = await get(`/players/topscorers?league=${leagueId}&season=${season}`);
+    const data = await get('/players/topscorers', { league: leagueId, season: season });
     return data || [];
   },
 
  
   async fetchTopAssists(leagueId = 39, season = 2024) {
-    const data = await get(`/players/topassists?league=${leagueId}&season=${season}`);
+    const data = await get('/players/topassists', { league: leagueId, season: season });
     return data || [];
   },
 
 
   async fetchTeamProfile(teamId, leagueId = 39, season = 2024) {
     const [teamRes, statsRes, fixturesRes, playersRes] = await Promise.all([
-      get(`/teams?id=${teamId}`),
-      get(`/teams/statistics?team=${teamId}&league=${leagueId}&season=${season}`),
-      get(`/fixtures?team=${teamId}&league=${leagueId}&season=${season}&status=FT&last=7`),
-      get(`/players?team=${teamId}&league=${leagueId}&season=${season}&page=1`),
+      get('/teams', { id: teamId }),
+      get('/teams/statistics', { team: teamId, league: leagueId, season: season }),
+      get('/fixtures', { team: teamId, league: leagueId, season: season, status: 'FT', last: 7 }),
+      get('/players', { team: teamId, league: leagueId, season: season, page: 1 }),
     ]);
 
     const teamInfo  = teamRes?.[0];
@@ -145,7 +152,7 @@ export const api = {
 
 
   async fetchPlayerProfile(playerId, season = 2024) {
-    const data = await get(`/players?id=${playerId}&season=${season}`);
+    const data = await get('/players', { id: playerId, season: season });
     const item = data?.[0];
     if (!item) throw new Error('Player not found');
 
@@ -162,7 +169,7 @@ export const api = {
     const pn = s.penalty || {};
     const fo = s.fouls || {};
 
-    const historyRaw = await get(`/players?id=${playerId}&season=2023`).catch(() => []);
+    const historyRaw = await get('/players', { id: playerId, season: 2023 }).catch(() => []);
     const hist2023 = historyRaw?.[0]?.statistics?.[0];
 
     const seasonHistory = [

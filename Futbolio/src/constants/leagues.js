@@ -6,7 +6,7 @@ export const LEAGUES = [
     country: 'Egypt',
     flag: 'EG',
     logo: '/logos/league_233.png',
-    season: 2025,
+    season: 2024,
   },
   {
     id: 39,
@@ -15,7 +15,7 @@ export const LEAGUES = [
     country: 'England',
     flag: 'GB',
     logo: '/logos/league_39.png',
-    season: 2025,
+    season: 2024,
   },
   {
     id: 140,
@@ -24,7 +24,7 @@ export const LEAGUES = [
     country: 'Spain',
     flag: 'ES',
     logo: '/logos/league_140.png',
-    season: 2025,
+    season: 2024,
   },
   {
     id: 135,
@@ -33,7 +33,7 @@ export const LEAGUES = [
     country: 'Italy',
     flag: 'IT',
     logo: '/logos/league_135.png',
-    season: 2025,
+    season: 2024,
   },
   {
     id: 78,
@@ -42,7 +42,7 @@ export const LEAGUES = [
     country: 'Germany',
     flag: 'DE',
     logo: '/logos/league_78.png',
-    season: 2025,
+    season: 2024,
   },
   {
     id: 61,
@@ -51,7 +51,7 @@ export const LEAGUES = [
     country: 'France',
     flag: 'FR',
     logo: '/logos/league_61.png',
-    season: 2025,
+    season: 2024,
   },
   {
     id: 2,
@@ -60,13 +60,13 @@ export const LEAGUES = [
     country: 'Europe',
     flag: 'EU',
     logo: '/logos/league_2.png',
-    season: 2025,
+    season: 2024,
   },
 ];
 
 export const LEAGUE_MAP = Object.fromEntries(LEAGUES.map((l) => [l.id, l]));
 
-export const CURRENT_SEASON = 2025;
+export const CURRENT_SEASON = 2024;
 
 export const MORE_LEAGUES = [
   { id: 94,  name: 'Primeira Liga',       country: 'Portugal',     logo: 'https://media.api-sports.io/football/leagues/94.png',  flag: 'https://media.api-sports.io/flags/pt.svg' },

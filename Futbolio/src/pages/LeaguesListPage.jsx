@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ALL_LEAGUES } from '../constants/leagues';
+import { useFavorites } from '../context/FavoritesContext';
 
 
 
@@ -11,6 +12,18 @@ export default function LeaguesListPage() {
     l.name.toLowerCase().includes(search.toLowerCase()) ||
     l.country.toLowerCase().includes(search.toLowerCase())
   );
+
+  const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+
+  const toggleFav = (e, league) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isFavorite('league', league.id)) {
+      removeFavorite('league', league.id);
+    } else {
+      addFavorite('league', league);
+    }
+  };
 
   return (
     <div className="page-wrapper">
@@ -95,7 +108,7 @@ export default function LeaguesListPage() {
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
                   <div
-                    className="fs-card"
+                    className="fs-card position-relative"
                     style={{
                       padding: '20px',
                       display: 'flex',
@@ -104,6 +117,21 @@ export default function LeaguesListPage() {
                       cursor: 'pointer',
                     }}
                   >
+                    <button
+                      onClick={(e) => toggleFav(e, league)}
+                      style={{
+                        position: 'absolute', top: 8, right: 8,
+                        background: 'none', border: 'none', cursor: 'pointer', padding: 4, zIndex: 2
+                      }}
+                    >
+                      <i 
+                        className={`bi ${isFavorite('league', league.id) ? 'bi-heart-fill' : 'bi-heart'}`}
+                        style={{ 
+                          color: isFavorite('league', league.id) ? 'var(--loss)' : 'var(--text-muted)',
+                          fontSize: '1rem', transition: 'color 0.2s'
+                        }}
+                      ></i>
+                    </button>
 
                     <div
                       style={{

@@ -121,11 +121,6 @@ export default function TeamPage() {
           </button>
         )}
         <div className="ms-auto d-flex gap-2 flex-wrap">
-          <select className="select-dark" style={{ width: 'auto' }} value={leagueId} onChange={e => setLeagueId(parseInt(e.target.value))}>
-            {Object.entries(LEAGUES).map(([id, info]) => (
-              <option key={id} value={id}>{info.flag} {info.name}</option>
-            ))}
-          </select>
           <select className="select-dark" style={{ width: 'auto' }} value={season} onChange={e => setSeason(parseInt(e.target.value))}>
             {[2024, 2023, 2022].map(y => <option key={y} value={y}>{y}/{y - 1999}</option>)}
           </select>

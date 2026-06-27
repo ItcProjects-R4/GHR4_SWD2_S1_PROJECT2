@@ -87,6 +87,8 @@ export default function Navbar() {
         </div>
       </nav>
 
+      <div style={{ height: 56 }}></div>
+
       {menuOpen && (
         <div
           style={{

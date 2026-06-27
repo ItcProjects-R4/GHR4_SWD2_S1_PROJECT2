@@ -2,14 +2,13 @@ import ApiService from './apiService';
 import { CURRENT_SEASON } from '../constants/leagues';
 
 const FootballApiService = {
-  /* ── Fixtures ── */
   getTodayFixtures() {
     const today = new Date().toISOString().split('T')[0];
     return this.getFixturesByDate(today);
   },
 
   getFixturesByDate(date) {
-    return ApiService.get('/fixtures', { date }, `fixtures_v2_${date}`);
+    return ApiService.get('/fixtures', { date }, `fixtures_v5_${date}`);
   },
 
   getLiveFixtures() {
@@ -21,7 +20,7 @@ const FootballApiService = {
   },
 
   getFixtureEvents(id) {
-    return ApiService.get('/fixtures/events', { fixture: id }, `events_${id}`);
+    return ApiService.get('/fixtures/events', { fixture: id }, `events_v2_${id}`);
   },
 
   getFixtureStats(id) {

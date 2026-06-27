@@ -5,6 +5,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useFavorites } from '../context/FavoritesContext';
 
 const DEMO_PLAYER = {
   id: 306, name: 'Salah', fullname: 'Mohamed Salah', photo: 'https://media.api-sports.io/football/players/306.png', age: 31,
@@ -34,6 +35,15 @@ export default function PlayerPage() {
   const [player, setPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+
+  const isFav = player ? isFavorite('player', player.id) : false;
+
+  const toggleFav = () => {
+    if (!player) return;
+    if (isFav) removeFavorite('player', player.id);
+    else addFavorite('player', player);
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -104,7 +114,21 @@ export default function PlayerPage() {
               {player.position}
             </span>
           </div>
-          <h1>{player.fullname}</h1>
+          <div className="d-flex align-items-center gap-3">
+            <h1 style={{ margin: 0 }}>{player.fullname}</h1>
+            <button 
+              onClick={toggleFav}
+              style={{ 
+                background: 'none', border: 'none', cursor: 'pointer', padding: 0, 
+                display: 'flex', alignItems: 'center' 
+              }}
+            >
+              <i 
+                className={`bi ${isFav ? 'bi-heart-fill' : 'bi-heart'}`} 
+                style={{ color: isFav ? 'var(--loss)' : 'var(--text-muted)', fontSize: '1.5rem', transition: 'color 0.2s' }}
+              ></i>
+            </button>
+          </div>
           <ul className="profile-meta-list mt-2">
             <li className="profile-meta-item">🏟 {player.teamName}</li>
             <li className="profile-meta-item">🎂 Age {player.age} ({player.birthDate})</li>
